@@ -8,8 +8,6 @@
 #include "misc.h"
 
 int i; // Declare variable for the most recent received data by the USARTx peripheral.
-  
-//ErrorStatus HSEStartUpStatus;
 
 // User defined function prototypes 
 void NVIC_Configuration(void);
@@ -34,59 +32,37 @@ void USART1_IRQHandler(void)
 		// If USART1 status regsiter & received data register are not reseted (not empty/null).
     if ((USART1->SR & USART_FLAG_RXNE) != (u16)RESET) 				// USART_SR =  (Status Register) register. | USART_FLAG_RXNE = Receive data register not empty flag. | (u16) = unsigned 16-bit integer number.
     {
-        i = USART_ReceiveData(USART1);					// Initialise "i" variable with the received data by the USARTx peripheral.
-			/*
-        if(i == '1'){
-            GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_SET);        // Set '1' on PA8
-					
-						GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_RESET);        // Set '0' on PA12
-					
-					
-						GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_SET);        // Set '1' on PA1
-						GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_RESET);        // Set '0' on PA0
-					
-					
-            UARTSend("LED ON\r\n",sizeof("LED ON\r\n"));    // Send message to UART1
-        }
-        else if(i == '0'){
-            GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_RESET);      // Set '0' on PA8
-					
-					
-						GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_RESET);      // Set '0' on PA1
-					
-					
-            UARTSend("LED OFF\r\n",sizeof("LED OFF\r\n"));
-        }
-				*/
+        i = USART_ReceiveData(USART1);					// Initialise "i" variable with the received data by the USARTx peripheral.
+        
 				if(i == '0') {
-					GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_RESET);       	 // Set '0' on PA8
-					GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_RESET);        // Set '0' on PA1
-					GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_RESET);        // Set '0' on PA12
-					GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_RESET);        // Set '0' on PA0
+					GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_RESET);      
+					GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_RESET);        
+					GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_RESET);        
+					GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_RESET);        
 				}
 				else if(i == '1'){ 
-					GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_SET);       	 // Set '0' on PA8
-					GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_RESET);        // Set '0' on PA1
-					GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_RESET);        // Set '1' on PA12
-					//GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_SET);        // Set '0' on PA0
+					GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_SET);       	 
+					GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_RESET);        
+					GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_RESET);        
+					//GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_SET);       
 				}
 				else if(i == '2'){					
-					GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_SET);       	 // Set '1' on PA8
-					GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_SET);        // Set '1' on PA1
-					GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_RESET);        // Set '0' on PA12
-					GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_RESET);        // Set '0' on PA0
+					GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_SET);       	
+					GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_SET);        
+					GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_RESET);        
+					GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_RESET);        
 				}
 				else if(i == '3'){ 
-					GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_RESET);       	 // Set '0' on PA8
-					GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_RESET);        // Set '0' on PA1
-					GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_SET);        // Set '1' on PA12
-					GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_SET);        // Set '1' on PA0
+					GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_RESET);       	
+					GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_RESET);       
+					GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_SET);        
+					GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_SET);        
 				}
 				else if(i == '4'){ 
-					GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_RESET);       	 // Set '0' on PA8
-					GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_SET);        // Set '0' on PA1
-					//GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_SET);        // Set '0' on PA12
-					GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_RESET);        // Set '1' on PA0
+					GPIO_WriteBit(GPIOA,GPIO_Pin_8,Bit_RESET);       	 
+					GPIO_WriteBit(GPIOA,GPIO_Pin_1,Bit_SET);       
+					//GPIO_WriteBit(GPIOA,GPIO_Pin_12,Bit_SET);        
+					GPIO_WriteBit(GPIOA,GPIO_Pin_0,Bit_RESET);        
 				}	
 				
     }
@@ -98,8 +74,6 @@ void usart_rxtx(void)
   
     /* Enable USART1 and GPIOA clock */	
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
-		/* Enable USART2 and GPIOA clock */	
-    ///RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
   
     /* NVIC Configuration */
     NVIC_Configuration();
