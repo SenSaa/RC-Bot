@@ -1,0 +1,42 @@
+
+0) Variable declarations - Declare the global variables used in more than one method outside the class.
+
+1) Instantiate views - Use findViewById to instantiate Buttons, TextViews, etc. linked to the layout xml.
+
+2) loadPrefs - Retrieve a String value from the preferences.
+-> Call this from onCreate as well as "onActivityResult" call back method. 
+
+--------------------------------------------------------------------------------------------------------------
+***************************************** Triggering Data to be Sent *****************************************
+3) Handler:
+If a message is received -> Encode Message.Object into Byte Array -> Construct a new String by decoding that subarray of bytes using the default charset -> Append String to a StringBuilder -->
+Determine the end of the line - If endOfLineIndex exceeds null -> store substring within (0-endOfLineIndex) -> delete StringBuilder -> set TextView to stored substring, which contains message received.
+
+--------------------------------------------------------------------------------------------------------------
+
+4) checkBTState - Check if bluetooth is ON, if not, request bluetooth to be turned ON.
+
+--------------------------------------------------------------------------------------------------------------
+***************************************** Triggering Data to be Sent *****************************************
+5) If ON button is clicked: 
+Pass a value to Thread method -> Encode String into bytes -> Write this Byte Array to the OutputStream.
+
+6) If OFF button is clicked:
+Pass another value to Thread method -> Encode String into bytes -> Write this Byte Array to the OutputStream.
+--------------------------------------------------------------------------------------------------------------
+////
+______________________________________________________________________________________________________________
+7) In ConnectionThread method run():
+Read Byte Array buffer from the InputStream -> obtain handler message that was sent to target passing paramters (handler status, byte array, integer, returned message object), also send this message to the specified Handler.
+*** Parameters: "what" (to identify type of message), "arg1" (for integer data), "arg2" (for another int data), "msg.obj" (for String obj).
+______________________________________________________________________________________________________________
+8) onPause - Close Socket.
+---
+9) onResume:
+- Mac Address: A requirement for connection - Check "getRemoteDevice" "checkBluetoothAddress" for this.
+- createRfcommSocketToServiceRecord: Specify a UUID <- A requirement for connection.
+- manage BTDiscovery: cancelDiscovery once pairing is done and connection needs to be establised.
+- connect to BTsocket
+- Start ConnectionThread: (A thread that amanages the network functionality outside main UIthread).
+
+______________________________________________________________________________________________________________
