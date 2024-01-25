@@ -19,4 +19,6 @@ What is not included:
 * However, for this, you can procure a motor robot car chasis kit! 
 
 A sample of the project in action:
-https://streamable.com/tjjfv
+
+https://github.com/SenSaa/RC-Bot/assets/19212519/5ef8ef43-aebb-401a-b63a-27fd3c6b636d
+
